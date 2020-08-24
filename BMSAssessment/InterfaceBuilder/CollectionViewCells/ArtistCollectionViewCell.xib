@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ArtistCollectionViewCell" customModule="BMSAssessment" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="180"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="180"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yp4-G8-kDW">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="120"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="120" id="TOC-Ws-dbX"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cdo-Fi-AAp">
+                        <rect key="frame" x="2" y="128" width="96" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjF-bv-7gv">
+                        <rect key="frame" x="2" y="151" width="96" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAn-pD-dBK">
+                        <rect key="frame" x="0.0" y="176" width="100" height="4"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="CjF-bv-7gv" secondAttribute="trailing" constant="2" id="0qp-hx-5ct"/>
+                <constraint firstItem="CjF-bv-7gv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="Cei-Nq-aCx"/>
+                <constraint firstItem="Yp4-G8-kDW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JeN-Tb-MSN"/>
+                <constraint firstItem="cAn-pD-dBK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ohe-R8-U3r"/>
+                <constraint firstItem="cAn-pD-dBK" firstAttribute="top" secondItem="CjF-bv-7gv" secondAttribute="bottom" constant="8" id="RY9-tS-kef"/>
+                <constraint firstItem="Cdo-Fi-AAp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="Won-Db-Chc"/>
+                <constraint firstItem="Cdo-Fi-AAp" firstAttribute="top" secondItem="Yp4-G8-kDW" secondAttribute="bottom" constant="8" id="b8h-Ep-ev0"/>
+                <constraint firstItem="CjF-bv-7gv" firstAttribute="top" secondItem="Cdo-Fi-AAp" secondAttribute="bottom" constant="6" id="fVe-dC-KRv"/>
+                <constraint firstItem="Yp4-G8-kDW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jCa-r4-hWc"/>
+                <constraint firstAttribute="trailing" secondItem="Cdo-Fi-AAp" secondAttribute="trailing" constant="2" id="pab-zm-0IV"/>
+                <constraint firstAttribute="trailing" secondItem="Yp4-G8-kDW" secondAttribute="trailing" id="sRu-Ww-IDb"/>
+                <constraint firstAttribute="trailing" secondItem="cAn-pD-dBK" secondAttribute="trailing" id="xaM-C5-ON3"/>
+                <constraint firstAttribute="bottom" secondItem="cAn-pD-dBK" secondAttribute="bottom" id="ye0-1y-4Ms"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="artistCharacterNameLabel" destination="CjF-bv-7gv" id="5QE-1W-XWA"/>
+                <outlet property="artistImageView" destination="Yp4-G8-kDW" id="XZ9-ac-5fn"/>
+                <outlet property="artistNameLabel" destination="Cdo-Fi-AAp" id="c5k-mm-gP9"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="127.90178571428571"/>
+        </collectionViewCell>
+    </objects>
+</document>
