@@ -51,6 +51,7 @@ class MovieDetailsViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = movieDetails?.title ?? ""
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
     }
     
     func registerCells() {

@@ -30,7 +30,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hX1-Py-K6q" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="07w-di-0oE"/>
                             <constraint firstItem="hX1-Py-K6q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1O8-bi-b85"/>
@@ -124,7 +124,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bsy-t8-rhz" firstAttribute="trailing" secondItem="JB4-DE-b7k" secondAttribute="trailing" id="2Om-rK-aFc"/>
                             <constraint firstItem="EjJ-5P-bwC" firstAttribute="top" secondItem="JB4-DE-b7k" secondAttribute="bottom" constant="4" id="LVF-yd-BJb"/>
