@@ -25,18 +25,24 @@ class MovieDetailsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
 
+        //UITableview setup
         movieDetailsTableView.rowHeight = UITableView.automaticDimension
         movieDetailsTableView.estimatedRowHeight = 180
         movieDetailsTableView.tableFooterView = UIView()
         
+        //Displaying total vote counts
         movieVoteCountLabel?.text = "\(movieDetails?.vote_count ?? 0)"
         
+        //UI setup for bottom view
         movieInterestedButton.layer.cornerRadius = 4.0
         movieInterestedButton.layer.masksToBounds = true
         movieInterestedButton.layer.borderColor = UIColor.systemBlue.cgColor
         movieInterestedButton.layer.borderWidth = 1.0
         
+        //Registering cells
         registerCells()
+        
+        //Fetch data for the details screen
         fetchData()
     }
     
@@ -57,12 +63,17 @@ class MovieDetailsViewController: UIViewController {
     }
     
     func fetchData() {
-        
+        //Adding movie poster as the first object in array to be displayed on top
         movieDetailsDataArray?.append(MovieDetailsSection(type: .poster, data:movieDetails))
 
+        /*
+         Fecthing synopsis data
+         Fetching data is done in synchronised way so that if any data is empty then that cell would not be shown at the time of displaying data.
+        */
         fetchSynopsis()
     }
     
+    //Function to fetch synopsis for the movie detail screen
     func fetchSynopsis() {
         
         if reachability.currentReachabilityStatus == .notReachable {
@@ -96,6 +107,7 @@ class MovieDetailsViewController: UIViewController {
         
     }
     
+    //Function to fetch reviews for the movie detail screen
     func fetchReviews() {
         
         if reachability.currentReachabilityStatus == .notReachable {
@@ -130,6 +142,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
+    //Function to fetch credits for the movie detail screen
     func fetchCredits() {
         
         if reachability.currentReachabilityStatus == .notReachable {
@@ -146,7 +159,8 @@ class MovieDetailsViewController: UIViewController {
         Webservices().callGetService(methodName: methodName, params: params, successBlock: { (data) in
             do {
                 let creditsResponse = try self.jsonDecoder.decode(MovieCreditResponse.self, from: data)
-
+                
+                //If the data is present then only adding it to the tableview cell
                 if creditsResponse.cast?.count ?? 0 > 0 {
                     self.movieDetailsDataArray?.append(MovieDetailsSection(type: .credits, data: creditsResponse))
                 }
@@ -164,6 +178,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
+    //Function to fetch similar movies for the movie detail screen
     func fetchSimilarData() {
         
         if reachability.currentReachabilityStatus == .notReachable {
@@ -181,6 +196,7 @@ class MovieDetailsViewController: UIViewController {
             do {
                 let similarDataResponse = try self.jsonDecoder.decode(MovieSimilarResponse.self, from: data)
 
+                //If the data is present then only adding it to the tableview cell
                 if similarDataResponse.results?.count ?? 0 > 0 {
                     self.movieDetailsDataArray?.append(MovieDetailsSection(type: .similar, data: similarDataResponse))
                 }
@@ -215,6 +231,7 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
         
         if let cellType = movieDetailsDataArray?[indexPath.row].type  {
             
+            //Displaying data on the basis of cell type assigned to each on the details fecth
             switch cellType {
             case .poster :
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePosterTableViewCell", for: indexPath) as! MoviePosterTableViewCell

@@ -30,7 +30,10 @@ class MovieListingViewController: UIViewController {
         
         movieListingTableView.tableFooterView = UIView()
         
+        //Registering TableView cells
         registerCells()
+        
+        //Fetching list of movies
         fetchMovieData(page_number: currentPage)
     }
     
@@ -55,12 +58,14 @@ class MovieListingViewController: UIViewController {
             "page" : page_number
             ] as [String : Any]
         
+        //Web service call for fetching list of movies
         Webservices().callGetService(methodName: WebServiceMethods.WS_NOW_PLAYING, params: params, successBlock: { (data) in
             do {
                 let jsonDecoder = JSONDecoder()
+                //Parsing data
                 self.movieResponse = try jsonDecoder.decode(MovieListingResponse.self, from: data)
-                print("Response received Count :\(self.movieResponse?.results?.count ?? 0)")
                 
+                //Checking and appending data to the movies data array
                 self.originalMovieDataArray = self.originalMovieDataArray?.count == 0 ? self.movieResponse?.results : (self.originalMovieDataArray ?? []) + (self.movieResponse?.results ?? [])
                 
                 self.filteredMovieDataArray = self.originalMovieDataArray
@@ -76,14 +81,15 @@ class MovieListingViewController: UIViewController {
         }
     }
     
+    //Function to get Search String after modifying it for search algorithm
     func getSearchString(searchText: String) -> String {
         var searchString = searchText
-        
         searchString = searchString.capitalized
         
         return searchString
     }
     
+    //Funtion to show the default data in case user searches for something and then clears the search bar
     func showInitialData() {
         filteredMovieDataArray = self.originalMovieDataArray
         DispatchQueue.main.async {
@@ -99,6 +105,9 @@ extension MovieListingViewController: UISearchBarDelegate {
             showInitialData()
         } else {
             let searchString = getSearchString(searchText: searchText)
+            
+            //Filtering the movie list on the basis of search text.
+            //Title is taken twice so as to fullfil Case 2 - ​If the user searches for - Le Jaayenge Dilwale, the list should display the movie - Dilwale Dulhania Le Jaayenge
 
             filteredMovieDataArray = movieResponse?.results?.filter( { "\($0.title ?? "") \($0.title ?? "")".range(of: searchString, options: .literal) != nil}) ?? []
         }
@@ -151,7 +160,6 @@ extension MovieListingViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movieDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
         movieDetailsVC.movieDetails = filteredMovieDataArray?[indexPath.row]
-//        BMSPreferences.addMovieToPreference(data: filteredMovieDataArray?[indexPath.row] ?? nil)
         self.navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
     
@@ -173,6 +181,7 @@ extension MovieListingViewController: UIScrollViewDelegate {
 }
 
 extension MovieListingViewController: MovieListingTableViewDelegate {
+    
     func movieBookButtonPressed(sender: UIButton) {
         
         let movieData = filteredMovieDataArray?[sender.tag]

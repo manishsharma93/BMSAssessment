@@ -8,12 +8,14 @@
 
 import UIKit
 
+//Keys frequently used in app
 struct Appkeys {
     
     static let APP_API_KEY = "a40d62d3a40793c9176e7bfa233985bb"
     static let APP_SERVICE_LANGUAGE = "en-US"
 }
 
+//Web service Base URL's and Methods
 struct WebServiceMethods {
     
     static let WS_BASE_URL = "https://api.themoviedb.org/3/movie/"

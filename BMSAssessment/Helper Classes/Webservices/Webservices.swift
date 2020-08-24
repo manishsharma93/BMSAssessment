@@ -1,9 +1,8 @@
-//
 //  Webservices.swift
-//  
+//  BMSAssessment
 //
-//  Created by Manish Kumar on 16/05/17.
-//  Copyright © 2017 Manish Kumar. All rights reserved.
+//  Created by Manish Kumar on 22/08/20.
+//  Copyright © 2020 Manish Kumar. All rights reserved.
 //
 
 import Foundation
