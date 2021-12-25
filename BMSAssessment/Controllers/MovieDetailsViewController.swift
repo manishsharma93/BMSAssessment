@@ -68,7 +68,6 @@ class MovieDetailsViewController: UIViewController {
         movieDetailsDataArray?.append(MovieDetailsSection(type: .poster, data:movieDetails, index: 0))
 
         /*
-         Fecthing synopsis data
          Fetching data is done in synchronised way so that if any data is empty then that cell would not be shown at the time of displaying data.
         */
         
