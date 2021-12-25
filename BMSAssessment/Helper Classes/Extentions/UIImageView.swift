@@ -19,19 +19,19 @@ extension UIImageView {
     
     func loadImage(_ imgURL: String?, type: ImageType) {
         
-        let imageURL = getImageURL(imageURL: imgURL ?? "", type: type)
+        let imageURL: String = getImageURL(imageURL: imgURL ?? "", type: type)
         
-        guard let imageURLString: String = imageURL else {
-            self.image = UIImage(named: "placeholder")
-            return
-        }
-        if imageURLString == "" {
+//        guard let imageURLString: String = imageURL else {
+//            self.image = UIImage(named: "placeholder")
+//            return
+//        }
+        if imageURL == "" {
             self.image = UIImage(named: "placeholder")
             return
         }
         
         DispatchQueue.global().async { [weak self] in
-            let data = try? Data(contentsOf: URL(string: imageURLString)!)
+            let data = try? Data(contentsOf: URL(string: imageURL)!)
             DispatchQueue.main.async {
                 self?.image = data != nil ? UIImage(data: data!) : UIImage(named: "placeholder")
             }

@@ -20,10 +20,12 @@ struct MovieDetailsSection {
 
     var type: MovieDetailCellType?
     var data: Any?
+    var index: Int
     
-    init(type: MovieDetailCellType, data: Any?) {
+    init(type: MovieDetailCellType, data: Any?, index: Int) {
         self.type = type
         self.data = data
+        self.index = index
     }
 }
 

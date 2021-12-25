@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MovieListingTableViewDelegate: class {
+protocol MovieListingTableViewDelegate: AnyObject {
     func movieBookButtonPressed(sender: UIButton)
 }
 

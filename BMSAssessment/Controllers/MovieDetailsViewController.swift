@@ -65,17 +65,64 @@ class MovieDetailsViewController: UIViewController {
     
     func fetchData() {
         //Adding movie poster as the first object in array to be displayed on top
-        movieDetailsDataArray?.append(MovieDetailsSection(type: .poster, data:movieDetails))
+        movieDetailsDataArray?.append(MovieDetailsSection(type: .poster, data:movieDetails, index: 0))
 
         /*
          Fecthing synopsis data
          Fetching data is done in synchronised way so that if any data is empty then that cell would not be shown at the time of displaying data.
         */
-        fetchSynopsis()
+        
+        let group = DispatchGroup()
+        let queue = DispatchQueue(label: "com.bookmyshow.app", attributes: .concurrent)
+        
+        group.enter()
+        queue.async(group: group) {  // Group Linked
+            self.fetchSynopsis{ success in
+                if success {
+                    group.leave()
+                }
+             }
+        }
+        
+        group.enter()
+        queue.async(group: group) {
+            self.fetchReviews{ success in
+                if success {
+                    group.leave()
+                }
+             }
+        }
+        
+        group.enter()
+        queue.async(group: group) {
+            self.fetchCredits{ success in
+                if success {
+                    group.leave()
+                }
+             }
+        }
+        
+        group.enter()
+        queue.async(group: group) {
+            self.fetchSimilarData{ success in
+                if success {
+                    group.leave()
+                }
+             }
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
+            
+            DispatchQueue.main.async {
+                self.movieDetailsDataArray = self.movieDetailsDataArray?.sorted { $0.index < $1.index }
+
+                self.movieDetailsTableView.reloadData()
+            }
+        }
     }
     
     //Function to fetch synopsis for the movie detail screen
-    func fetchSynopsis() {
+    func fetchSynopsis(completionHandler:@escaping (Bool) -> ()) {
         
         if reachability.currentReachabilityStatus == .notReachable {
             return
@@ -92,24 +139,19 @@ class MovieDetailsViewController: UIViewController {
             do {
                 let synopsisResponse = try self.jsonDecoder.decode(MovieSynopsisResponse.self, from: data)
 
-                self.movieDetailsDataArray?.append(MovieDetailsSection(type: .synopsis, data: synopsisResponse))
-                
-                self.fetchReviews()
+                self.movieDetailsDataArray?.append(MovieDetailsSection(type: .synopsis, data: synopsisResponse, index: 1))
+                completionHandler(true)
 
-                DispatchQueue.main.async {
-                    self.movieDetailsTableView.reloadData()
-                }
             } catch {
                 
             }
         }) { (error) in
-            self.fetchReviews()
+            completionHandler(false)
         }
-        
     }
     
     //Function to fetch reviews for the movie detail screen
-    func fetchReviews() {
+    func fetchReviews(completionHandler:@escaping (Bool) -> ()) {
         
         if reachability.currentReachabilityStatus == .notReachable {
             return
@@ -127,24 +169,20 @@ class MovieDetailsViewController: UIViewController {
                 let reviewsResponse = try self.jsonDecoder.decode(MovieReviewsResponse.self, from: data)
 
                 if reviewsResponse.results?.count ?? 0 > 0 {
-                    self.movieDetailsDataArray?.append(MovieDetailsSection(type: .reviews, data: reviewsResponse))
+                    self.movieDetailsDataArray?.append(MovieDetailsSection(type: .reviews, data: reviewsResponse, index: 2))
                 }
                 
-                self.fetchCredits()
-                
-                DispatchQueue.main.async {
-                    self.movieDetailsTableView.reloadData()
-                }
+                completionHandler(true)
             } catch {
                 
             }
         }) { (error) in
-            self.fetchCredits()
+            completionHandler(false)
         }
     }
     
     //Function to fetch credits for the movie detail screen
-    func fetchCredits() {
+    func fetchCredits(completionHandler:@escaping (Bool) -> ()) {
         
         if reachability.currentReachabilityStatus == .notReachable {
             return
@@ -163,24 +201,19 @@ class MovieDetailsViewController: UIViewController {
                 
                 //If the data is present then only adding it to the tableview cell
                 if creditsResponse.cast?.count ?? 0 > 0 {
-                    self.movieDetailsDataArray?.append(MovieDetailsSection(type: .credits, data: creditsResponse))
+                    self.movieDetailsDataArray?.append(MovieDetailsSection(type: .credits, data: creditsResponse, index: 3))
                 }
-                
-                self.fetchSimilarData()
-                
-                DispatchQueue.main.async {
-                    self.movieDetailsTableView.reloadData()
-                }
+                completionHandler(true)
             } catch {
                 
             }
         }) { (error) in
-            self.fetchSimilarData()
+            completionHandler(false)
         }
     }
     
     //Function to fetch similar movies for the movie detail screen
-    func fetchSimilarData() {
+    func fetchSimilarData(completionHandler:@escaping (Bool) -> ()) {
         
         if reachability.currentReachabilityStatus == .notReachable {
             return
@@ -199,17 +232,14 @@ class MovieDetailsViewController: UIViewController {
 
                 //If the data is present then only adding it to the tableview cell
                 if similarDataResponse.results?.count ?? 0 > 0 {
-                    self.movieDetailsDataArray?.append(MovieDetailsSection(type: .similar, data: similarDataResponse))
+                    self.movieDetailsDataArray?.append(MovieDetailsSection(type: .similar, data: similarDataResponse, index: 4))
                 }
-                
-                DispatchQueue.main.async {
-                    self.movieDetailsTableView.reloadData()
-                }
+                completionHandler(true)
             } catch {
                 
             }
         }) { (error) in
-            
+            completionHandler(false)
         }
     }
 
